@@ -1,0 +1,27 @@
+gcloud_version: 375.0.0
+go_version: 1.17.8
+kind_version: 0.12.0
+kubectl_version: 1.22.2 # comment out for latest
+helm_version: 3.8.1
+helm2_version: 2.17.0
+minikube_version: 1.25.2
+node_version: 16.14.0
+python_version: 3.8.5
+python2_version: 2.7.16
+terraform_version: 1.1.7
+
+# # Use system python because in linux, pyenv python is missing packages from apt.
+# # This should work for both Linux and MacOS.
+# ansible_python_interpreter: /usr/bin/python3
+
+# compose_version: 1.29.2
+
+# # Kubernetes development
+# minikube_kubernetes_version: 1.17.16
+# minikube_driver: virtualbox
+
+# # MongoDB version only use major.minor format
+# mongodb_version: 4.4
+
+# # Allows to install packages for non-lts installations for Linux
+# distribution_codename: focal

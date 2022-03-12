@@ -1,0 +1,42 @@
+- name: Create local binaries directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin/helm3-darwin"
+    state: directory
+    mode: '0750'
+    owner: "{{ ansible_env.USER }}"
+
+- name: Install Helm 3 for x86_64
+  unarchive:
+    src: "https://get.helm.sh/helm-v{{ helm_version }}-darwin-amd64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/bin/helm3-darwin"
+    remote_src: yes
+    mode: '0750'
+    owner: "{{ ansible_env.USER }}"
+    # Workaround for only extracting the helm binary
+    extra_opts:
+      - --strip=1
+      - --wildcards
+      - '*/helm'
+  when: ansible_architecture == "x86_64"
+
+- name: Install Helm 3 for Apple Silicon
+  unarchive:
+    src: "https://get.helm.sh/helm-v{{ helm_version }}-darwin-arm64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/bin/helm3-darwin"
+    remote_src: yes
+    mode: '0750'
+    owner: "{{ ansible_env.USER }}"
+    # Workaround for only extracting the helm binary
+    extra_opts:
+      - --strip=1
+      - --wildcards
+      - '*/helm'
+  when: ansible_architecture == "arm64"
+
+- name: Create softlink helm 3 soft link
+  file:
+    src: "{{ ansible_env.HOME }}/.local/bin/helm3-darwin/helm"
+    dest: "{{ ansible_env.HOME }}/.local/bin/helm"
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+    state: link

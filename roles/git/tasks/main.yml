@@ -1,0 +1,21 @@
+- name: Install git from Homebrew
+  community.general.homebrew:
+    name: git
+    state: present
+    update_homebrew: yes
+  tags:
+    - git-install
+
+- name: Copy global gitignore file to ~/.gitignore
+  copy:
+    src: gitignore
+    dest: "{{ ansible_env.HOME }}/.gitignore"
+  tags:
+    - git-config
+
+- name: Set global git config file
+  template:
+    src: gitconfig.j2
+    dest: ~/.gitconfig
+  tags:
+    - git-config

@@ -1,0 +1,53 @@
+########## Prettify ls command ##########
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export NOCOLOR='\033[0m'
+
+########## Homebrew ##########
+# I put these first but expect that they should be last in the PATH beause of house the rest of the file exports the PATH
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+
+########## Set Editor ##########
+# Prefer VIM as Editor
+export VISUAL=vim
+export EDITOR=$VISUAL
+
+########## Golang config ##########
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
+export PATH=$GOPATH/bin:$PATH
+export GOPRIVATE=github.com/getflywheel
+export PATH=$HOME/.local/bin/go/bin:$PATH
+
+########## Nodenv ##########
+export PATH="$HOME/.nodenv/bin:$PATH"
+
+if command -v nodenv 1>/dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
+
+########## Rbenv ##########
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+########## Kubectl ZSH Completion ##########
+if command -v kubectl >/dev/null 2>&1; then
+  source <(kubectl completion zsh)
+fi
+
+########## Google Cloud (gcloud) ##########
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f $HOME/.local/bin/google-cloud-sdk/path.zsh.inc ]; then . $HOME/.local/bin/google-cloud-sdk/path.zsh.inc; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f $HOME/.local/bin/google-cloud-sdk/completion.zsh.inc ]; then . $HOME/.local/bin/google-cloud-sdk/completion.zsh.inc; fi
+
+########## Local binaries ##########
+export PATH=$HOME/.local/bin:$PATH

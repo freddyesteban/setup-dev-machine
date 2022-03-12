@@ -1,0 +1,53 @@
+- name: Install minikube version {{ minikube_version }} for Apple Silicon to ~/.local/bin/
+  unarchive:
+    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-darwin-arm64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+    # Workaround for only extracting the binary
+    extra_opts:
+      - --strip=1
+      - --wildcards
+      - '*/minikube*'
+    list_files: yes
+  register: minikube_content
+  when: ansible_architecture == "arm64"
+
+- name: Get minikube file name for Apple silicone
+  set_fact:
+    minikube_filename: "{{ minikube_content.files[0] }}"
+  when: ansible_architecture == "arm64"
+
+- name: Install minikube {{ minikube_version }} for x86_64 to ~/.local/bin/
+  unarchive:
+    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-darwin-arm64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+    # Workaround for only extracting the binary
+    extra_opts:
+      - --strip=1
+      - --wildcards
+      - '*/minikube*'
+    list_files: yes
+  register: mminikube_content
+  when: ansible_architecture == "x86_64"
+
+- name: Get minikube file name for x86_64
+  set_fact:
+    minikube_filename: "{{ minikube_content.files[0] }}"
+  when: ansible_architecture == "x86_64"
+
+- debug:
+    var: minikube_filename
+
+- name: Rename minikube-darwin-arm64 to minikube
+  copy:
+    # Assumes only one file was match in the unarchive ste
+    src: "{{ ansible_env.HOME }}/.local/bin/{{ minikube_filename }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/minikube"
+    owner: "{{ ansible_env.USER }}"
+    mode: '0550'
+    remote_src: yes

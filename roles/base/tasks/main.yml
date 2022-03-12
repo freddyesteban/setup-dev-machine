@@ -1,0 +1,65 @@
+
+- name: Create local binaries directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0750'
+    owner: "{{ ansible_env.USER }}"
+  tags:
+    - always
+    - create-local-bin
+  loop:
+    - "{{ ansible_env.HOME }}/.local"
+    - "{{ ansible_env.HOME }}/.local/bin"
+
+- name: Copy zprofile to ~/.zprofile
+  template:
+    src: zprofile
+    dest: "{{ ansible_env.HOME}}/.zprofile"
+  tags: always
+
+- name: Copy zshrc to ~/.myzshrc
+  template:
+    src: zshrc
+    dest: "{{ ansible_env.HOME}}/.myzshrc"
+  tags: always
+
+- name: Ensure ~/.myzshrc is sourced when shell is started
+  lineinfile:
+    path: "{{ ansible_env.HOME}}/.zshrc"
+    state: present
+    line: source {{ ansible_env.HOME}}/.myzshrc
+
+- name: Install CLI development tools
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+    update_homebrew: yes
+  loop:
+    - cmake
+    - git
+    - httpie
+    - jq
+    - the_silver_searcher
+    - tree
+    - vault
+    - watch
+    - libpq
+    - gnu-tar
+    - postgresql
+  tags:
+    - install-cli-tools
+
+- name: Install Homebrew Cask apps
+  ignore_errors: yes
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+    update_homebrew: yes
+  loop:
+    - appcleaner
+    - caffeine
+    - iterm2
+    - macvim
+  tags:
+    - install-apps

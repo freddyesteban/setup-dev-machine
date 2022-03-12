@@ -1,0 +1,27 @@
+- name: Git clone nodenv
+  git:
+    repo: 'https://github.com/nodenv/nodenv.git'
+    dest: "{{ ansible_env.HOME}}/.nodenv"
+    accept_hostkey: yes
+  tags:
+    - install-nodenv
+
+- name: Git clone node-build
+  git:
+    repo: 'https://github.com/nodenv/node-build.git'
+    dest: "{{ ansible_env.HOME}}/.nodenv/plugins/node-build"
+    accept_hostkey: yes
+  tags:
+    - install-nodenv
+
+- name: Install node version {{ node_version }}
+  shell: "{{ ansible_env.HOME}}/.nodenv/bin/nodenv install {{ node_version }}"
+  args:
+    creates: "{{ ansible_env.HOME}}/.nodenv/versions/{{ node_version }}/bin/node"
+  tags:
+    - install-node
+
+- name: Set node global version {{ node_version }}
+  shell: "{{ ansible_env.HOME}}/.nodenv/bin/nodenv global {{ node_version }}"
+  tags:
+    - install-node

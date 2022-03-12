@@ -1,0 +1,32 @@
+- name: Create local binaries directory
+  file:
+    path: "{{ ansible_env.HOME }}/.vim"
+    state: directory
+    mode: '0750'
+    owner: "{{ ansible_env.USER }}"
+  tags:
+    - vim-config
+
+- name: Copy common files to ~/.vim/
+  copy:
+    src: common/
+    dest: "{{ ansible_env.HOME}}/.vim/"
+  tags:
+    - vim-config
+
+- name: Copy vimrc to ~/.vimrc
+  template:
+    src: vimrc.j2
+    dest: "{{ ansible_env.HOME}}/.vimrc"
+  tags:
+    - vim-config
+
+- name: Uninstall vim plugins
+  shell: vim +'PlugClean --sync' +qall
+  tags:
+    - install-vim-plugins
+
+- name: Install vim plugins
+  shell: vim +'PlugInstall --sync' +qall
+  tags:
+    - install-vim-plugins

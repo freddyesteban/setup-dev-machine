@@ -1,0 +1,17 @@
+- name: Download gcloud sdk for ARM architecture
+  unarchive:
+    src: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-{{ gcloud_version  }}-darwin-arm.tar.gz
+    dest: "{{ ansible_env.HOME }}/.local/bin/"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "arm64"
+
+- name: Download gcloud sdk for x86_64 architecture
+  unarchive:
+    src: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-{{ gcloud_version }}-darwin-x86_64.tar.gz
+    dest: "{{ ansible_env.HOME }}/.local/bin/"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "x86_64"

@@ -1,0 +1,11 @@
+- name: Git clone rbenv
+  git:
+    repo: 'https://github.com/rbenv/rbenv.git'
+    dest: "{{ ansible_env.HOME}}/.rbenv"
+    accept_hostkey: yes
+
+- name: Git clone ruby-build
+  git:
+    repo: 'https://github.com/rbenv/ruby-build.git'
+    dest: "{{ ansible_env.HOME}}/.rbenv/plugins/ruby-build"
+    accept_hostkey: yes
