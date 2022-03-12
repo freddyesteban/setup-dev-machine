@@ -1,0 +1,23 @@
+- name: Set kubectl version to latest if not kubectl_version
+  when: kubectl_version is not defined
+  set_fact:
+    kubectl_version: $(curl -L -s https://dl.k8s.io/release/stable.txt)
+
+- debug:
+    var: kubectl_version
+
+- name: Install kubectl version {{ kubectl_version }}
+  get_url:
+    url: https://dl.k8s.io/release/{{ kubectl_version  }}/bin/darwin/arm64/kubectl
+    dest: ~/.local/bin/kubectl
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "arm64"
+
+- name: Install kubectl version {{ kubectl_version }}
+  get_url:
+    url: https://dl.k8s.io/release/{{ kubectl_version  }}/bin/darwin/amd64/kubectl
+    dest: ~/.local/bin/kubectl
+    mode: '0110'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "x86_64"

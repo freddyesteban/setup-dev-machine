@@ -1,0 +1,39 @@
+let mapleader = ","
+
+" ############################################################################################
+" ############################### Source vim-plug and settings ###############################
+" ############################################################################################
+
+" Plug options, e.g. Plug 'sonph/onehalf', {'rtp': 'vim'}
+" Option	Description
+" branch/tag/commit	Branch/tag/commit of the repository to use
+" rtp	Subdirectory that contains Vim plugin
+" dir	Custom directory for the plugin
+" as	Use different name for the plugin
+" do	Post-update hook (string or funcref)
+" on	On-demand loading: Commands or <Plug>-mappings
+" for	On-demand loading: File types
+" frozen	Do not update unless explicitly specified
+
+" Automate the installation of vim-plugin
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" ############################################################################################
+" ################################ Pyenv Python Support ######################################
+" ############################################################################################
+let g:python3_host_prog = "{{ ansible_env.HOME }}/.pyenv/versions/{{ python_version }}/bin/python"
+
+" ############################################################################################
+" ################################## Common plugins ##########################################
+" ############################################################################################
+source {{ ansible_env.HOME }}/.vim/plugins.vim
+
+call plug#end()
+
+source {{ ansible_env.HOME }}/.vim/config.vim

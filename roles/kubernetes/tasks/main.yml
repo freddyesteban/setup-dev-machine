@@ -1,0 +1,24 @@
+- name: Include Kubectl install tasks
+  include: kubectl.yml
+  tags:
+    - install-kubectl
+
+- name: Include Kind install tasks
+  include: kind.yml
+  tags:
+    - install-kind
+
+- name: Include Helm 3 install tasks
+  include: helm.yml
+  tags:
+    - install-helm
+
+- name: Include Helm 2 install tasks
+  include: helm2.yml
+  tags:
+    - install-helm2
+
+- name: Include minikube install tasks
+  include: minikube.yml
+  tags:
+    - install-minikube

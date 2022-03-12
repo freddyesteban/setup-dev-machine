@@ -1,0 +1,17 @@
+- name: Install Go for Apple Silicone to ~/.local/bin/
+  unarchive:
+    src: https://go.dev/dl/go{{ go_version }}.darwin-arm64.tar.gz
+    dest: "{{ ansible_env.HOME }}/.local/bin/"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "arm64"
+
+- name: Install Go for x86_64 to ~/.local/bin/
+  unarchive:
+    src: https://go.dev/dl/go{{ go_version }}.darwin-amd64.pkg
+    dest: "{{ ansible_env.HOME }}/.local/bin/"
+    remote_src: yes
+    mode: '0550'
+    owner: "{{ ansible_env.USER }}"
+  when: ansible_architecture == "x86_64"
