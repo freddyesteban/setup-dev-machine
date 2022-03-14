@@ -16,10 +16,17 @@ Feedback is always welcomed!
     many are already native supported by the command line package manager.
 - Python 3+
 - [Ansible](https://docs.ansible.com/ansible/latest/index.html) - Installed via `Homebrew`
-  - To install, run: `brew install ansible`
   - Required plugins:
-    - `ansible-galaxy collection install ansible.posix`
-    - `ansible-galaxy collection install community.general`
+    - `ansible.posix`
+    - `community.general`
+
+## Install Ansible & Plugins
+
+```bash
+brew install ansible
+ansible-galaxy collection install ansible.posix
+ansible-galaxy collection install community.general
+```
 
 ## Configuration
 
@@ -58,7 +65,7 @@ ansible-playbook setup_mac.yml --tags "golang,git"
   - jq
   - the_silver_searcher
   - tree
-  - vault
+  - gettext
   - watch
   - libpq
   - gnu-tar

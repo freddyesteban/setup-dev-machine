@@ -2,7 +2,6 @@
   community.general.homebrew:
     name: git
     state: present
-    update_homebrew: yes
   tags:
     - git-install
 

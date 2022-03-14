@@ -5,24 +5,28 @@
     state: directory
     mode: '0750'
     owner: "{{ ansible_env.USER }}"
-  tags:
-    - always
-    - create-local-bin
   loop:
     - "{{ ansible_env.HOME }}/.local"
     - "{{ ansible_env.HOME }}/.local/bin"
+  tags:
+    - always
+    - create-local-bin
 
 - name: Copy zprofile to ~/.zprofile
   template:
     src: zprofile
     dest: "{{ ansible_env.HOME}}/.zprofile"
-  tags: always
+  tags:
+    - always
+    - zsh-dotfiles
 
 - name: Copy zshrc to ~/.myzshrc
   template:
     src: zshrc
     dest: "{{ ansible_env.HOME}}/.myzshrc"
-  tags: always
+  tags:
+    - always
+    - zsh-dotfiles
 
 - name: Ensure ~/.myzshrc is sourced when shell is started
   lineinfile:
@@ -34,7 +38,6 @@
   community.general.homebrew:
     name: "{{ item }}"
     state: present
-    update_homebrew: yes
   loop:
     - cmake
     - git
@@ -42,7 +45,7 @@
     - jq
     - the_silver_searcher
     - tree
-    - vault
+    - gettext
     - watch
     - libpq
     - gnu-tar
@@ -55,7 +58,6 @@
   community.general.homebrew:
     name: "{{ item }}"
     state: present
-    update_homebrew: yes
   loop:
     - appcleaner
     - caffeine
