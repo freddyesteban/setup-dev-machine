@@ -79,6 +79,10 @@ set cursorline
 " Automatically read changed files
 set autoread
 
+" Preferred split modes
+set splitright
+set splitbelow
+
 """"""""""""""""""""""""""""""""""""""" Searching """"""""""""""""""""""""""""""""""""""""""""
 " It will move the highlight as you add characters to the search string
 set incsearch
