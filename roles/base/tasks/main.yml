@@ -50,6 +50,7 @@
     - libpq
     - gnu-tar
     - postgresql
+    - krew
   tags:
     - install-cli-tools
 

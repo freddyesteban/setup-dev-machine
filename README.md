@@ -88,6 +88,7 @@ ansible-playbook setup_mac.yml --tags "golang,git"
   - terraform
   - vim
     - Custom config and plugins
+  - krew - Tool to manage `kubectl` plugins
 - UI Applications using Homebrew
   - appcleaner
   - caffeine
