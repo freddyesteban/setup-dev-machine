@@ -339,7 +339,8 @@ let g:coc_global_extensions = [
     \ 'coc-markdownlint',
     \ 'coc-webview',
     \ 'coc-markdown-preview-enhanced',
-    \ 'coc-yaml'
+    \ 'coc-yaml',
+    \ 'coc-sumneko-lua'
     \]
 
 " Copied and pasted the following from: https://github.com/neoclide/coc.nvim#example-vim-configuration
