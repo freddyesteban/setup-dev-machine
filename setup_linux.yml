@@ -17,13 +17,10 @@
       tags: golang
     - role: kubernetes
       tags: kubernetes
-    # TODO: fix nodenv for linux
     # - role: nodenv
     #   tags: nodenv
-    # TODO: fix nodenv for linux
     # - role: pyenv
     #   tags: pyenv
-    # TODO: fix nodenv for linux
     # - role: rbenv
     #   tags: rbenv
     # - role: oh-my-zsh

@@ -1,6 +1,5 @@
 # TODO: in linux, cloning to .nodenv requires escalation, fix that
 - name: Git clone nodenv
-  become: yes
   git:
     repo: 'https://github.com/nodenv/nodenv.git'
     dest: "{{ ansible_env.HOME}}/.nodenv"
