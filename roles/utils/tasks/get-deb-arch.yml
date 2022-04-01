@@ -1,0 +1,10 @@
+- name: Use dpkg to get deb architecture
+  shell: dpkg --print-architecture
+  register: result
+
+- name: Set fact deb_arch
+  set_fact:
+    deb_arch: "{{ result.stdout }}"
+
+- debug:
+    var: deb_arch

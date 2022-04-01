@@ -1,0 +1,11 @@
+- name: Include docker installation for linux
+  include: docker.yml
+  when: ansible_system == "Linux"
+  tags:
+    - docker-install
+
+- name: Include docker compose installation for linux or macos
+  include: dcompose.yml
+  when: ansible_system == "Linux"
+  tags:
+    - docker-compose-install

@@ -4,7 +4,7 @@
   gather_facts: yes
 
   vars_files:
-    - ./defaults.yml
+    - ./vars/linux_defaults.yml
 
   roles:
     - role: base
@@ -29,3 +29,5 @@
       tags: terraform
     - role: vim
       tags: vim
+    - role: docker
+      tags: docker

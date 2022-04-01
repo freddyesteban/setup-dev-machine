@@ -4,7 +4,7 @@
   gather_facts: yes
 
   vars_files:
-    - ./defaults.yml
+    - ./vars/macos_defaults.yml
 
   roles:
     - role: base

@@ -1,0 +1,72 @@
+- name: Remove other docker APT packages for Linux
+  become: yes
+  apt:
+    state: absent
+    pkg:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+
+- name: Install docker APT packages dependecies for Linux
+  become: yes
+  apt:
+    state: present
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+
+- name: Add Docker's official GPG key for Linux
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Get DEB architecture
+  include_role:
+    name: utils
+    tasks_from: get-deb-arch
+
+- set_fact:
+    linux_distribution_codename: "{{ lookup('pipe', 'lsb_release -cs') }}"
+
+- name: Add Docker repository into sources list
+  become: yes
+  apt_repository:
+    repo: deb [arch={{ deb_arch }}] https://download.docker.com/linux/ubuntu {{ distro_codename }} stable
+    state: present
+
+- name: Install docker
+  become: yes
+  apt:
+    state: present
+    update_cache: yes
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+- name: Ensure group "docker" exists
+  become: yes
+  group:
+    name: group
+    state: present
+
+- name: Add current user to "docker" group
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+- name: Enable docker service on boot
+  become: yes
+  systemd:
+    name: docker
+    enabled: yes
+
+- debug:
+    msg: Log in and out for changes to take place!

@@ -1,0 +1,5 @@
+- name: Download latest docker-compose binary to ~/.local/bin and set 0755 permissions
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v{{ docker_compose_version }}/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+    dest: ~/.local/bin/docker-compose
+    mode: '0755'
