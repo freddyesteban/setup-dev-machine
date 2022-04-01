@@ -1,0 +1,11 @@
+- name: Install MacOS Pyenv Dependecies
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - openssl
+    - readline
+    - sqlite3
+    - xz
+    - zlib
+  tags: install-pyenv

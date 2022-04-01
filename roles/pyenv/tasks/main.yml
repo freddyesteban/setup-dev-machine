@@ -1,14 +1,10 @@
-- name: Install MacOS Pyenv Dependecies
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - openssl
-    - readline
-    - sqlite3
-    - xz
-    - zlib
-  tags: install-pyenv
+- name: Mac OS install tasks
+  include: macos.yml
+  when: ansible_system == "Darwin"
+
+- name: Linux install tasks
+  include: linux.yml
+  when: ansible_system == "Linux"
 
 - name: Git clone pyenv
   git:

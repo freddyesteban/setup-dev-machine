@@ -6,18 +6,18 @@
 - debug:
     var: kubectl_version
 
-- name: Install kubectl version {{ kubectl_version }}
+- name: Install kubectl version {{ kubectl_version }} for arm64
   get_url:
-    url: https://dl.k8s.io/release/{{ kubectl_version  }}/bin/darwin/arm64/kubectl
+    url: https://dl.k8s.io/release/v{{ kubectl_version  }}/bin/{{ ansible_system | lower }}/arm64/kubectl
     dest: ~/.local/bin/kubectl
     mode: '0550'
     owner: "{{ ansible_env.USER }}"
   when: ansible_architecture == "arm64"
 
-- name: Install kubectl version {{ kubectl_version }}
+- name: Install kubectl version {{ kubectl_version }} for x86_64
   get_url:
-    url: https://dl.k8s.io/release/{{ kubectl_version  }}/bin/darwin/amd64/kubectl
+    url: https://dl.k8s.io/release/v{{ kubectl_version  }}/bin/{{ ansible_system | lower }}/amd64/kubectl
     dest: ~/.local/bin/kubectl
-    mode: '0110'
+    mode: '0550'
     owner: "{{ ansible_env.USER }}"
   when: ansible_architecture == "x86_64"

@@ -1,0 +1,34 @@
+- name: Setup Development Machine
+  hosts: localhost
+  connection: local
+  become: no
+
+  vars_files:
+    - ./defaults.yml
+
+  roles:
+    - role: base
+      tags: base
+    - role: gcloud
+      tags: gcloud
+    - role: git
+      tags: git
+    - role: golang
+      tags: golang
+    - role: kubernetes
+      tags: kubernetes
+    # TODO: fix nodenv for linux
+    # - role: nodenv
+    #   tags: nodenv
+    # TODO: fix nodenv for linux
+    # - role: pyenv
+    #   tags: pyenv
+    # TODO: fix nodenv for linux
+    # - role: rbenv
+    #   tags: rbenv
+    # - role: oh-my-zsh
+    #   tags: oh-my-zsh
+    # - role: terraform
+    #   tags: terraform
+    # - role: vim
+    #   tags: vim

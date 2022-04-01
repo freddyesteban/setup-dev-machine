@@ -1,6 +1,6 @@
 - name: Install minikube version {{ minikube_version }} for Apple Silicon to ~/.local/bin/
   unarchive:
-    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-darwin-arm64.tar.gz"
+    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-{{ ansible_system | lower }}-arm64.tar.gz"
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
@@ -21,7 +21,7 @@
 
 - name: Install minikube {{ minikube_version }} for x86_64 to ~/.local/bin/
   unarchive:
-    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-darwin-arm64.tar.gz"
+    src: "https://github.com/kubernetes/minikube/releases/download/v{{ minikube_version }}/minikube-{{ ansible_system | lower }}-amd64.tar.gz"
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
@@ -32,7 +32,7 @@
       - --wildcards
       - '*/minikube*'
     list_files: yes
-  register: mminikube_content
+  register: minikube_content
   when: ansible_architecture == "x86_64"
 
 - name: Get minikube file name for x86_64
@@ -40,10 +40,7 @@
     minikube_filename: "{{ minikube_content.files[0] }}"
   when: ansible_architecture == "x86_64"
 
-- debug:
-    var: minikube_filename
-
-- name: Rename minikube-darwin-arm64 to minikube
+- name: Rename minikube-{{ ansible_system | lower }}-arm64 to minikube
   copy:
     # Assumes only one file was match in the unarchive ste
     src: "{{ ansible_env.HOME }}/.local/bin/{{ minikube_filename }}"

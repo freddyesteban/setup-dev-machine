@@ -1,6 +1,6 @@
 - name: Create local binaries directory
   file:
-    path: "{{ ansible_env.HOME }}/.local/bin/helm2-darwin-amd64"
+    path: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64"
     state: directory
     mode: '0750'
     owner: "{{ ansible_env.USER }}"
@@ -8,8 +8,8 @@
 # Ansible 2 does not have support for Apple Siliocn, use amd64
 - name: Download and Install Helm 2
   unarchive:
-    src: "https://get.helm.sh/helm-v{{ helm2_version }}-darwin-amd64.tar.gz"
-    dest: "{{ ansible_env.HOME }}/.local/bin/helm2-darwin-amd64"
+    src: "https://get.helm.sh/helm-v{{ helm2_version }}-{{ ansible_system | lower }}-amd64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64"
     remote_src: yes
     mode: '0750'
     owner: "{{ ansible_env.USER }}"
@@ -21,7 +21,7 @@
 
 - name: Create softlink helm2 soft link
   file:
-    src: "{{ ansible_env.HOME }}/.local/bin/helm2-darwin-amd64/helm"
+    src: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64/helm"
     dest: "{{ ansible_env.HOME }}/.local/bin/helm2"
     mode: '0550'
     owner: "{{ ansible_env.USER }}"

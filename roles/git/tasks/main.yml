@@ -1,9 +1,6 @@
-- name: Install git from Homebrew
-  community.general.homebrew:
-    name: git
-    state: present
-  tags:
-    - git-install
+- name: Mac OS install tasks
+  include: macos.yml
+  when: ansible_system == "Darwin"
 
 - name: Copy global gitignore file to ~/.gitignore
   copy:

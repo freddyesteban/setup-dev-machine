@@ -1,3 +1,16 @@
+- debug:
+    var: ansible_env.USER
+
+- debug:
+    var: ansible_env.HOME
+
+- name: Mac OS install tasks
+  include: macos.yml
+  when: ansible_system == "Darwin"
+
+- name: Linux install tasks
+  include: linux.yml
+  when: ansible_system == "Linux"
 
 - name: Create local binaries directory
   file:
@@ -29,40 +42,8 @@
     - zsh-dotfiles
 
 - name: Ensure ~/.myzshrc is sourced when shell is started
+  ignore_errors: yes
   lineinfile:
     path: "{{ ansible_env.HOME}}/.zshrc"
     state: present
     line: source {{ ansible_env.HOME}}/.myzshrc
-
-- name: Install CLI development tools
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - cmake
-    - git
-    - httpie
-    - jq
-    - the_silver_searcher
-    - tree
-    - gettext
-    - watch
-    - libpq
-    - gnu-tar
-    - postgresql
-    - krew
-  tags:
-    - install-cli-tools
-
-- name: Install Homebrew Cask apps
-  ignore_errors: yes
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - appcleaner
-    - caffeine
-    - iterm2
-    - macvim
-  tags:
-    - install-apps

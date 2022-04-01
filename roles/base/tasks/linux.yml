@@ -1,0 +1,30 @@
+- name: Install CLI APT packages
+  become: yes
+  apt:
+    update_cache: yes
+    autoremove: yes
+    pkg:
+      - build-essential
+      - curl
+      - make
+      - cmake
+      - silversearcher-ag
+      - sqlite3
+      - zsh
+      - tmux
+      - jq
+
+- name: Change user shell to zsh for Linux
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+
+- name: Copy zprofile to ~/.profile
+  template:
+    src: zprofile
+    dest: ~/.profile
+  # Linux requires pyenv to be on both .zprofile and .profile
+  when: ansible_system is defined and ansible_system == "Linux"
+  tags:
+    - zprofile-config

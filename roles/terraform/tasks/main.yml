@@ -1,6 +1,6 @@
 - name: Install Terraform version {{ terraform_version }} for Apple Silicon
   unarchive:
-    src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_arm64.zip
+    src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ ansible_system | lower }}_arm64.zip
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
@@ -10,7 +10,7 @@
 
 - name: Install Terraform version {{ terraform_version }} for x86_64
   unarchive:
-    src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip
+    src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ ansible_system | lower }}_amd64.zip
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'

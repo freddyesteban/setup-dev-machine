@@ -1,0 +1,32 @@
+- name: Install CLI development tools for MacOS
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cmake
+    - git
+    - httpie
+    - jq
+    - the_silver_searcher
+    - tree
+    - gettext
+    - watch
+    - libpq
+    - gnu-tar
+    - postgresql
+    - krew
+  tags:
+    - install-cli-tools
+
+- name: Install Homebrew Cask apps
+  ignore_errors: yes
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - appcleaner
+    - caffeine
+    - iterm2
+    - macvim
+  tags:
+    - install-apps
