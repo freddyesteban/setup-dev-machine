@@ -4,7 +4,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   when: ansible_architecture == "arm64"
   tags: install-terraform
 
@@ -14,6 +14,6 @@
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
-  when: ansible_architecture == "amd64"
+    owner: "{{ ansible_user_id }}"
+  when: ansible_architecture == "x86_64"
   tags: install-terraform

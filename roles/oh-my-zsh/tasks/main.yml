@@ -32,9 +32,3 @@
     path: "{{ ansible_env.HOME}}/.zshrc"
     regexp: '^plugins='
     line: plugins=(git colored-man-pages helm pyenv python docker golang extract zsh-syntax-highlighting zsh-autosuggestions kubectl minikube)
-
-- name: Ensure ~/.myzshrc is sourced when shell is started
-  lineinfile:
-    path: "{{ ansible_env.HOME}}/.zshrc"
-    state: present
-    line: source {{ ansible_env.HOME}}/.myzshrc

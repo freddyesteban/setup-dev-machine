@@ -3,7 +3,7 @@
     path: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64"
     state: directory
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
 
 # Ansible 2 does not have support for Apple Siliocn, use amd64
 - name: Download and Install Helm 2
@@ -12,7 +12,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64"
     remote_src: yes
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     # Workaround for only extracting the helm binary
     extra_opts:
       - --strip=1
@@ -24,5 +24,5 @@
     src: "{{ ansible_env.HOME }}/.local/bin/helm2-{{ ansible_system | lower }}-amd64/helm"
     dest: "{{ ansible_env.HOME }}/.local/bin/helm2"
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     state: link

@@ -3,7 +3,7 @@
     path: "{{ ansible_env.HOME }}/.local/bin/helm3-{{ ansible_system | lower }}"
     state: directory
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
 
 - name: Install Helm 3 for x86_64
   unarchive:
@@ -11,7 +11,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/helm3-{{ ansible_system | lower }}"
     remote_src: yes
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     # Workaround for only extracting the helm binary
     extra_opts:
       - --strip=1
@@ -25,7 +25,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/helm3-{{ ansible_system | lower }}"
     remote_src: yes
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     # Workaround for only extracting the helm binary
     extra_opts:
       - --strip=1
@@ -38,5 +38,5 @@
     src: "{{ ansible_env.HOME }}/.local/bin/helm3-{{ ansible_system | lower }}/helm"
     dest: "{{ ansible_env.HOME }}/.local/bin/helm"
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     state: link

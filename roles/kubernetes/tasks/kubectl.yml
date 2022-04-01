@@ -11,7 +11,7 @@
     url: https://dl.k8s.io/release/v{{ kubectl_version  }}/bin/{{ ansible_system | lower }}/arm64/kubectl
     dest: ~/.local/bin/kubectl
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   when: ansible_architecture == "arm64"
 
 - name: Install kubectl version {{ kubectl_version }} for x86_64
@@ -19,5 +19,5 @@
     url: https://dl.k8s.io/release/v{{ kubectl_version  }}/bin/{{ ansible_system | lower }}/amd64/kubectl
     dest: ~/.local/bin/kubectl
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   when: ansible_architecture == "x86_64"

@@ -4,7 +4,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     # Workaround for only extracting the binary
     extra_opts:
       - --strip=1
@@ -25,7 +25,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     # Workaround for only extracting the binary
     extra_opts:
       - --strip=1
@@ -45,6 +45,6 @@
     # Assumes only one file was match in the unarchive ste
     src: "{{ ansible_env.HOME }}/.local/bin/{{ minikube_filename }}"
     dest: "{{ ansible_env.HOME }}/.local/bin/minikube"
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
     mode: '0550'
     remote_src: yes

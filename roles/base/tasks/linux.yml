@@ -13,18 +13,24 @@
       - zsh
       - tmux
       - jq
+      - vim
 
 - name: Change user shell to zsh for Linux
   become: yes
-  user:
-    name: "{{ ansible_user_id }}"
-    shell: /usr/bin/zsh
+  command: chsh -s /usr/bin/zsh
 
+- name: Copy zshrc to ~/.zshrc
+  copy:
+    src: zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    owner: "{{ ansible_user_id }}"
+    # Do not overwrite if exists, important because of oh-my-zsh edits the file
+    force: no
+
+# Linux requires pyenv to be on both .zprofile and .profile
 - name: Copy zprofile to ~/.profile
   template:
     src: zprofile
     dest: ~/.profile
-  # Linux requires pyenv to be on both .zprofile and .profile
-  when: ansible_system is defined and ansible_system == "Linux"
   tags:
     - zprofile-config

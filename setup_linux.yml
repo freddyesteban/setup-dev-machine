@@ -1,7 +1,7 @@
 - name: Setup Development Machine
   hosts: localhost
   connection: local
-  become: no
+  gather_facts: yes
 
   vars_files:
     - ./defaults.yml
@@ -17,15 +17,15 @@
       tags: golang
     - role: kubernetes
       tags: kubernetes
-    # - role: nodenv
-    #   tags: nodenv
-    # - role: pyenv
-    #   tags: pyenv
-    # - role: rbenv
-    #   tags: rbenv
-    # - role: oh-my-zsh
-    #   tags: oh-my-zsh
-    # - role: terraform
-    #   tags: terraform
-    # - role: vim
-    #   tags: vim
+    - role: nodenv
+      tags: nodenv
+    - role: pyenv
+      tags: pyenv
+    - role: rbenv
+      tags: rbenv
+    - role: oh-my-zsh
+      tags: oh-my-zsh
+    - role: terraform
+      tags: terraform
+    - role: vim
+      tags: vim

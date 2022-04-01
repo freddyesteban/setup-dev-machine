@@ -27,15 +27,14 @@
     accept_hostkey: yes
   tags: install-pyenv
 
-- name: Install python 2 and 3 with with --enable-framework for Mac OSX
-  shell: ~/.pyenv/bin/pyenv install {{ item }}
+- name: Install python {{ python_version }}
+  shell: ~/.pyenv/bin/pyenv install {{ python_version }}
   args:
-    creates: ~/.pyenv/versions/{{ item }}/bin/python
-  loop:
-    - "{{ python_version }}"
-    - "{{ python2_version }}"
+    creates: ~/.pyenv/versions/{{ python_version }}/bin/python
   tags: install-python
+  when: python_version is defined
 
 - name: Set python global version to {{ python_version }}
   shell: "{{ ansible_env.HOME}}/.pyenv/bin/pyenv global {{ python_version }}"
   tags: install-python
+  when: python_version is defined

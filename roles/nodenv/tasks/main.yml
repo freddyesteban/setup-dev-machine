@@ -21,8 +21,10 @@
     creates: "{{ ansible_env.HOME}}/.nodenv/versions/{{ node_version }}/bin/node"
   tags:
     - install-node
+  when: node_version is defined
 
 - name: Set node global version {{ node_version }}
   shell: "{{ ansible_env.HOME}}/.nodenv/bin/nodenv global {{ node_version }}"
   tags:
     - install-node
+  when: node_version is defined

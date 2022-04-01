@@ -9,3 +9,17 @@
     repo: 'https://github.com/rbenv/ruby-build.git'
     dest: "{{ ansible_env.HOME}}/.rbenv/plugins/ruby-build"
     accept_hostkey: yes
+
+- name: Install ruby version {{ ruby_version }}
+  shell: "{{ ansible_env.HOME}}/.rbenv/bin/rbenv install {{ ruby_version }}"
+  args:
+    creates: "{{ ansible_env.HOME}}/.rbenv/versions/{{ ruby_version }}/bin/ruby"
+  tags:
+    - install-ruby
+  when: ruby_version is defined
+
+- name: Set ruby global version {{ ruby_version }}
+  shell: "{{ ansible_env.HOME}}/.rbenv/bin/rbenv global {{ ruby_version }}"
+  tags:
+    - install-ruby
+  when: ruby_version is defined

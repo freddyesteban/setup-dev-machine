@@ -4,7 +4,7 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   when: ansible_architecture == "arm64"
 
 - name: Download gcloud sdk for x86_64 architecture
@@ -13,5 +13,5 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/"
     remote_src: yes
     mode: '0550'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   when: ansible_architecture == "x86_64"

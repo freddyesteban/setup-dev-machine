@@ -1,4 +1,4 @@
-# Linux
+# Setup development machine for Debian-based Linux
 
 Instructions for setting a dev machince that is debian-based.
 

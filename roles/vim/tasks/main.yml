@@ -3,7 +3,7 @@
     path: "{{ ansible_env.HOME }}/.vim"
     state: directory
     mode: '0750'
-    owner: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_user_id }}"
   tags:
     - vim-config
 
@@ -20,13 +20,3 @@
     dest: "{{ ansible_env.HOME}}/.vimrc"
   tags:
     - vim-config
-
-- name: Uninstall vim plugins
-  shell: vim +'PlugClean --sync' +qall
-  tags:
-    - install-vim-plugins
-
-- name: Install vim plugins
-  shell: vim +'PlugInstall --sync' +qall
-  tags:
-    - install-vim-plugins

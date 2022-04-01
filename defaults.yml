@@ -5,10 +5,12 @@ kubectl_version: 1.22.2 # comment out for latest
 helm_version: 3.8.1
 helm2_version: 2.17.0
 minikube_version: 1.25.2
-node_version: 16.14.0
-python_version: 3.8.5
-python2_version: 2.7.16
 terraform_version: 1.1.7
+
+# languages
+node_version: 16.14.0
+python_version: 3.9.12
+ruby_version: 3.1.1
 
 # # Use system python because in linux, pyenv python is missing packages from apt.
 # # This should work for both Linux and MacOS.
