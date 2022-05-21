@@ -29,3 +29,5 @@
       tags: terraform
     - role: vim
       tags: vim
+    - role: neovim
+      tags: neovim
