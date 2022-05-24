@@ -1,0 +1,19 @@
+- name: Set operating system variable for neovim download link - macos
+  set_fact:
+    neovim_arch_sys: macos
+  when: ansible_system == "Darwin"
+
+- name: Set operating system variable for neovim download link - linux64
+  set_fact:
+    neovim_arch_sys: linux64
+  when: ansible_system == "Linux"
+
+- name: Install neovim version {{ neovim_version }} to ~/.local/bin/
+  unarchive:
+    src: "https://github.com/neovim/neovim/releases/download/v{{ neovim_version }}/nvim-{{ neovim_arch_sys }}.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local"
+    remote_src: yes
+    owner: "{{ ansible_user_id }}"
+    # Workaround for only extracting the binary
+    extra_opts:
+      - --strip-components=1
