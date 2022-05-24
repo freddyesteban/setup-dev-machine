@@ -5,7 +5,7 @@ kubectl_version: 1.22.2 # comment out for latest
 helm_version: 3.8.1
 helm2_version: 2.17.0
 minikube_version: 1.25.2
-terraform_version: 1.1.7
+terraform_version: 1.2.0
 neovim_version: 0.7.0
 
 # languages
